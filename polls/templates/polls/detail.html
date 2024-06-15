@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail poll</title>
+</head>
+<style>
+    input[type=submit]{
+        width: 100px;
+        height: 30px;
+        background-color: turquoise;
+        color: black;
+        border-radius: 15px;
+        border:1px solid burlywood
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h3>{{ question.question_text }}</h3>
+        <ul>
+            {% for choice in question.choice_set.all %}
+            <li> choices by:{{ choice.choice_text }}</li>
+            <li> the question got votes :{{ choice.votes }}</li>
+            {% endfor %}
+        </ul>
+
+ <form action="{% url 'polls:vote' question.id %}" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <legend><h1>{{ question.question_text }}</h1></legend>
+                {% if error_message %}
+                <p><strong>
+                    {{ error_message }}
+                </strong></p>
+                {% endif %}
+                {% for ch in question.choice_set.all %}
+                <label for="choice{{ forloop.counter }}"> {{ ch.choice_text }} </label>
+                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ ch.id }}">
+                {% endfor%}
+            </fieldset>
+            <input type="submit" value="Vote">
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="polls">
+            {% if latest %}
+            <ul>
+                {% for i in latest %}
+                <li>
+                    {% comment %}<a href="{% url 'polls:create_post' i.id %}">{% endcomment %}
+
+                        {{ i.question_text }}/{{ i.pub_date}}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <h1>there are not any question at the moment</h1>
+            {% endif %}
+        </div>
+    </div>
+    
+</body>
+</html>
